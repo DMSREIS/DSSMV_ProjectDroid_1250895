@@ -1,48 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/addMeal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:gravity="center">
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Refeição"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        <Button
+                android:id="@+id/btnFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concluir" />
+    </LinearLayout>
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Adicionar alimento"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="32dp" />
-
-    <Button
-            android:id="@+id/btnScan"
+            android:id="@+id/tvTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:text="Scan de código de barras" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Total: 0 kcal"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-    <Button
-            android:id="@+id/btnManual"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
-            android:text="Inserir manualmente" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp">
 
-    <Button
-            android:id="@+id/btnSaved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
-            android:text="Alimento já guardado" />
+        <ListView
+                android:id="@+id/listItems"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Ainda sem alimentos.\nAdiciona o primeiro abaixo." />
+    </FrameLayout>
 
     <TextView
             android:id="@+id/tvResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:textSize="16sp" />
+            android:layout_marginHorizontal="16dp"
+            android:textSize="14sp" />
+
+    <Button
+            android:id="@+id/btnScan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Adicionar por scan" />
+
+    <Button
+            android:id="@+id/btnManual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Adicionar manualmente" />
+
+    <Button
+            android:id="@+id/btnSaved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Adicionar alimento guardado" />
+
 </LinearLayout>

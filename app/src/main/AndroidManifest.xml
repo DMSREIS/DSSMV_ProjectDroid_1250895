@@ -15,10 +15,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.NutriScan">
         <activity
-                android:name=".ScanActivity"
-                android:exported="false" />
-        <activity
-                android:name=".MainActivity"
+                android:name=".LoginActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,9 +24,26 @@
         </activity>
 
         <activity
+                android:name=".MainActivity"
+                android:exported="false" />
+
+        <activity
                 android:name=".AddMealActivity"
                 android:exported="false" />
 
+        <activity
+                android:name=".ScanActivity"
+                android:exported="false" />
 
+        <activity
+                android:name=".QuantityActivity"
+                android:exported="false" />
+
+        <activity
+                android:name=".ManualFoodActivity"
+                android:exported="false" />
+        <activity
+                android:name=".SavedFoodsActivity"
+                android:exported="false" />
     </application>
 </manifest>

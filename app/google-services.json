@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "831185237985",
+    "project_id": "nutriscan-dddfa",
+    "storage_bucket": "nutriscan-dddfa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831185237985:android:88a9d4fb08a755cef904a0",
+        "android_client_info": {
+          "package_name": "com.example.nutriscan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5Y038tjUbLHe_SVFkVOxlnPAAQR9l7o0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
