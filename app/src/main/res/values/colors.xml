@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="day_met">#2E7D32</color>
+    <color name="day_missed">#C62828</color>
+    <color name="day_none">#757575</color>
+    <color name="today_outline">#1565C0</color>
 </resources>

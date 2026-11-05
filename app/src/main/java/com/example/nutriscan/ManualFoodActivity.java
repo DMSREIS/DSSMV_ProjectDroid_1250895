@@ -11,12 +11,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.nutriscan.model.Food;
+import com.example.nutriscan.view.SliderInput;
 
 public class ManualFoodActivity extends AppCompatActivity {
 
     public static final String EXTRA_BARCODE = "barcode";
 
-    private EditText etName, etKcal, etProteins, etCarbs, etFat;
+    private EditText etName;
+    private SliderInput sliderKcal, sliderProteins, sliderCarbs, sliderFat;
     private String barcode;
 
     @Override
@@ -33,10 +35,20 @@ public class ManualFoodActivity extends AppCompatActivity {
         barcode = getIntent().getStringExtra(EXTRA_BARCODE);
 
         etName = findViewById(R.id.etName);
-        etKcal = findViewById(R.id.etKcal);
-        etProteins = findViewById(R.id.etProteins);
-        etCarbs = findViewById(R.id.etCarbs);
-        etFat = findViewById(R.id.etFat);
+        sliderKcal = findViewById(R.id.sliderKcal);
+        sliderProteins = findViewById(R.id.sliderProteins);
+        sliderCarbs = findViewById(R.id.sliderCarbs);
+        sliderFat = findViewById(R.id.sliderFat);
+
+        sliderKcal.setup(900, 1);
+        sliderProteins.setup(100, 0.1);
+        sliderCarbs.setup(100, 0.1);
+        sliderFat.setup(100, 0.1);
+
+        sliderKcal.setLabel("Calorias por 100 gramas");
+        sliderProteins.setLabel("Proteínas por 100 gramas");
+        sliderCarbs.setLabel("Hidratos de carbono por 100 gramas");
+        sliderFat.setLabel("Gorduras por 100 gramas");
 
         findViewById(R.id.btnContinue).setOnClickListener(v -> continueToQuantity());
     }
@@ -47,33 +59,13 @@ public class ManualFoodActivity extends AppCompatActivity {
             etName.setError("Indica o nome");
             return;
         }
-        Double kcal = parse(etKcal);
-        if (kcal == null) {
-            etKcal.setError("Indica as calorias");
-            return;
-        }
 
-        Food food = new Food(barcode, name, "", kcal,
-                orZero(parse(etProteins)), orZero(parse(etCarbs)), orZero(parse(etFat)));
+        Food food = new Food(barcode, name, "",
+                sliderKcal.getValue(), sliderProteins.getValue(),
+                sliderCarbs.getValue(), sliderFat.getValue());
 
         Intent intent = new Intent(this, QuantityActivity.class);
         intent.putExtra(QuantityActivity.EXTRA_FOOD, food);
         startActivity(intent);
-    }
-
-    private Double parse(EditText editText) {
-        String s = editText.getText().toString().trim().replace(',', '.');
-        if (s.isEmpty()) {
-            return null;
-        }
-        try {
-            return Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Double orZero(Double value) {
-        return value == null ? 0.0 : value;
     }
 }

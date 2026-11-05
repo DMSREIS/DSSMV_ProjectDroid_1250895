@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="20dp"
+              android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/goalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+
+    <com.example.nutriscan.view.SliderInput
+            android:id="@+id/goalTarget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <RadioGroup
+            android:id="@+id/goalType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <RadioButton
+                android:id="@+id/goalMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Máximo" />
+
+        <RadioButton
+                android:id="@+id/goalMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mínimo" />
+    </RadioGroup>
+</LinearLayout>

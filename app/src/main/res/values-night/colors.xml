@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="day_met">#66BB6A</color>
+    <color name="day_missed">#EF5350</color>
+    <color name="day_none">#9E9E9E</color>
+    <color name="today_outline">#90CAF9</color>
+</resources>

@@ -28,7 +28,7 @@ public class JsonHandler {
             }
             return dto;
         } catch (Exception e) {
-            // if we have a problem, simply return null
+            // if problem, return null
             return null;
         }
     }

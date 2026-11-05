@@ -6,16 +6,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 public class HttpOperation {
 
     private static String readBody(InputStream in) {
+        if (in == null) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
             String read = br.readLine();
             while (read != null) {
@@ -28,35 +31,45 @@ public class HttpOperation {
         return sb.toString();
     }
 
+    // GET simples (Open Food Facts): devolve o corpo, ou null se falhar
     public static String get(String urlStr) {
-        String body = null;
-        InputStream in = null;
-        HttpURLConnection httpConn = null;
         try {
-            URL url = new URL(urlStr);
-            URLConnection urlConn = url.openConnection();
-            if (!(urlConn instanceof HttpURLConnection)) {
-                throw new IOException("URL is not an Http URL");
-            }
-            httpConn = (HttpURLConnection) urlConn;
-            httpConn.setRequestMethod("GET");
-            httpConn.setRequestProperty("User-Agent", Utils.USER_AGENT);
-            httpConn.setConnectTimeout(10000);
-            httpConn.setReadTimeout(10000);
-            httpConn.connect();
-            int resCode = httpConn.getResponseCode();
-            if (resCode == HttpURLConnection.HTTP_OK) {
-                in = httpConn.getInputStream();
-                body = readBody(in);
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            HttpResponse response = send("GET", urlStr, null);
+            return response.isSuccess() ? response.getBody() : null;
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (httpConn != null)
-                httpConn.disconnect();
+            return null;
         }
-        return body;
+    }
+
+    // GET, POST, PUT ou DELETE. Lança IOException se não houver ligação.
+    public static HttpResponse send(String method, String urlStr, String jsonBody)
+            throws IOException {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(urlStr);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+            conn.setRequestProperty("User-Agent", Utils.USER_AGENT);
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(10000);
+
+            if (jsonBody != null) {
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setDoOutput(true);
+                try (OutputStream out = conn.getOutputStream()) {
+                    out.write(jsonBody.getBytes(StandardCharsets.UTF_8));
+                }
+            }
+
+            int code = conn.getResponseCode();
+            InputStream in = (code >= 200 && code < 400)
+                    ? conn.getInputStream() : conn.getErrorStream();
+            return new HttpResponse(code, readBody(in));
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
     }
 }
